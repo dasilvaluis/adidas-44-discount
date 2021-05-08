@@ -1,0 +1,14 @@
+{
+  "manifest_version": 2,
+  "name": "Adidas 44 Discount",
+  "version": "1.0.0",
+  "permissions": ["tabs", "activeTab", "storage"],
+  "content_scripts": [
+    {
+      "js": ["contentscript.js"],
+      "matches": ["<all_urls>"]
+    }
+  ],
+  "web_accessible_resources": ["assets/*"],
+  "content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'"
+}
