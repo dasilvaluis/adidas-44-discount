@@ -28,24 +28,24 @@ function AdidasDiscount() {
         return;
       }
       
-      const originalPriceLabel = priceEl.innerHTML;
+      const originalPriceHtml = priceEl.innerHTML;
+      const priceMatch = matchPrice(originalPriceHtml);
 
-      if (matchPrice(originalPriceLabel)) {
-        const originalPrice = parsePrice(originalPriceLabel);
-        const finalPrice = applyPromotion(originalPrice);
+      if (Array.isArray(priceMatch) && priceMatch.length) {
+        const rawPrice = priceMatch[0];
+        const originalPrice = parsePrice(rawPrice);
+        const finalPrice = applyPromotion(rawPrice);
   
-        const finalPriceLabel = originalPriceLabel.replace(new RegExp(originalPrice, "g"), finalPrice);
+        const finalPriceLabel = originalPriceHtml.replace(new RegExp(originalPrice, "g"), finalPrice);
     
-        if (originalPrice) {
-          priceEl.innerHTML = `
-            <span class="gl-price-item gl-price-item--sale">${finalPriceLabel}</span>
-            <span class="gl-price--s">
-              <span class="gl-price-item gl-price-item--crossed">
-                ${originalPriceLabel}
-              </span>&nbsp;
-              ${promoNote}
-            </span>`;
-        }
+        priceEl.innerHTML = `
+          <span class="gl-price-item gl-price-item--sale">${finalPriceLabel}</span>
+          <span class="gl-price--s">
+            <span class="gl-price-item gl-price-item--crossed">
+              ${originalPriceHtml}
+            </span>&nbsp;
+            ${promoNote}
+          </span>`;
       }
     });
   }
